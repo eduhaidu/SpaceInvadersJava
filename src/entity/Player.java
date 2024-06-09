@@ -42,6 +42,7 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
+
     public void update(){
         if(kh.leftPressed){
             if(x-speed>0) {
@@ -87,6 +88,5 @@ public class Player extends Entity{
         for (Laser laser : lasers){
             g2.drawImage(laser.imageSprite,laser.x,laser.y-gp.spriteSize/2,gp.spriteSize,gp.spriteSize,null);
         }
-
     }
 }

@@ -2,6 +2,8 @@ package main;
 
 import javax.swing.JPanel;
 import java.awt.*;
+
+import entity.Enemy;
 import entity.Player;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -21,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this,keyHandler);
+    Enemy enemy = new Enemy(this);
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -59,12 +62,15 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
         player.update();
+        enemy.update();
     }
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
         player.draw(g2);
+        enemy.draw(g2);
         g2.dispose();
     }
 }
