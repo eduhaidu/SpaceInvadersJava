@@ -9,4 +9,6 @@ public class Enemy extends Entity{
     public Enemy(GamePanel gamePanel){
         this.gamePanel = gamePanel;
     }
+
+
 }
