@@ -7,6 +7,6 @@ public class Entity {
     public int x,y;
     public int speed;
 
-    public boolean alive;
+    //public boolean alive;
     public BufferedImage imageSprite;
 }

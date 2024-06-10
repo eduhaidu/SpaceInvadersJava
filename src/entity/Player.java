@@ -31,7 +31,7 @@ public class Player extends Entity{
         x = 100;
         y = 600;
         speed = 3;
-        alive = true;
+        //alive = true;
         lastShotTime = System.currentTimeMillis();
     }
 

@@ -11,7 +11,7 @@ public class Laser extends Entity {
         this.speed = speed;
         this.life = life;
         this.imageSprite=sprite;
-        this.alive = true;
+//        this.alive = true;
     }
 
     public void move(){
