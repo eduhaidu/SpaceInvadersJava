@@ -14,7 +14,7 @@ public class Player extends Entity{
 
     GamePanel gp;
     KeyHandler kh;
-    ArrayList<Laser> lasers;
+    public ArrayList<Laser> lasers;
     private long lastShotTime;
     private final long shotCooldown = 1000;
 

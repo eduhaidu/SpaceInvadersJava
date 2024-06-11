@@ -12,9 +12,9 @@ import java.io.InputStreamReader;
 public class EnemyGrid {
 
     GamePanel gp;
-    Enemy[][] enemies;
-    int rows=5;
-    int cols=11;
+    public Enemy[][] enemies;
+    public int rows=5;
+    public int cols=11;
     int gridX=100;
     int gridY=100;
 
@@ -91,7 +91,7 @@ public class EnemyGrid {
     public void draw(Graphics2D g){
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
-                if(enemies[i][j]!=null){
+                if(enemies[i][j].isAlive){
                     g.drawImage(enemies[i][j].imageSprite,enemies[i][j].x,enemies[i][j].y,gp.spriteSize,gp.spriteSize,null);
                 }
             }

@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 import enemy.EnemyGrid;
+import entity.Laser;
 import entity.Player;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -72,7 +73,29 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D)g;
         player.draw(g2);
         enemyGrid.draw(g2);
+        hitDetection();
         //enemy.draw(g2);
         g2.dispose();
+    }
+
+    public void hitDetection(){
+        // Verificare coliziune
+        for(int i=0;i<enemyGrid.rows;i++){
+            for(int j=0;j<enemyGrid.cols;j++){
+                if(enemyGrid.enemies[i][j].isAlive){
+                    if(!player.lasers.isEmpty()){
+                        for(int k=0;k<player.lasers.size();k++){
+                            Laser laser = player.lasers.get(k);
+                            if(laser.x>enemyGrid.enemies[i][j].x && laser.x<enemyGrid.enemies[i][j].x+spriteSize &&
+                                    laser.y>enemyGrid.enemies[i][j].y && laser.y<enemyGrid.enemies[i][j].y+spriteSize){
+                                enemyGrid.enemies[i][j].isAlive = false;
+                                player.lasers.remove(k);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }
