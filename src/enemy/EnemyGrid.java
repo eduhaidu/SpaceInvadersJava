@@ -66,9 +66,29 @@ public class EnemyGrid {
                 }
             }
         }
+        for(int i=0; i<rows;i++){
+            for(int j=0; j<cols; j++){
+                if(enemies[i][j].x>gp.getWidth()-gp.spriteSize){
+                    for(int k=0; k<rows; k++){
+                        for(int l=0; l<cols; l++){
+                            enemies[k][l].direction*=-1;
+                            enemies[k][l].y+=5;
+                        }
+                    }
+                }
+                if(enemies[i][j].x<0){
+                    for(int k=0;k<rows;k++){
+                        for(int l=0;l<cols;l++){
+                            enemies[k][l].direction*=-1;
+                            enemies[k][l].y+=5;
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    public void draw(Graphics g){
+    public void draw(Graphics2D g){
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
                 if(enemies[i][j]!=null){
