@@ -39,12 +39,15 @@ public class EnemyGrid {
                 for(int j=0; j<cols; j++){
                     if(line.charAt(j)=='0'){
                         enemies[i][j]=new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite.png")));
+                        enemies[i][j].type=1;
                     }
                     else if(line.charAt(j)=='1'){
                         enemies[i][j] = new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite1.png")));
+                        enemies[i][j].type=2;
                     }
                     else if(line.charAt(j)=='2'){
                         enemies[i][j] = new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite2.png")));
+                        enemies[i][j].type=3;
                     }
                     else{
                         System.out.println("Numar invalid in fisierul de configurare al inamicilor la linia "+(i+1)+" si coloana "+(j+1));
@@ -96,6 +99,17 @@ public class EnemyGrid {
                 }
             }
         }
+    }
+
+    public boolean areAllDead(){
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                if(enemies[i][j].isAlive){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

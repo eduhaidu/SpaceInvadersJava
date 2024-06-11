@@ -10,6 +10,7 @@ import entity.Player;
 public class GamePanel extends JPanel implements Runnable{
 
     public boolean gameOver = false;
+    public int score = 0;
 
     final int originalSpriteSize = 16; // Sprite de 16x16
     final int scale = 3;
@@ -73,7 +74,18 @@ public class GamePanel extends JPanel implements Runnable{
         if(!gameOver){
             player.update();
             enemyGrid.update();
+
+            if(enemyGrid.areAllDead()){
+                resetGame();
+            }
         }
+    }
+
+    public void resetGame(){
+        enemyGrid = new EnemyGrid(this);
+        player.setDefaultValues();
+        score = 0;
+        gameOver = false;
     }
 
     public void paintComponent(Graphics g){
@@ -83,6 +95,11 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
         enemyGrid.draw(g2);
         hitDetection();
+
+        // Desenare scor
+        g2.setColor(Color.white);
+        g2.setFont(new Font("Arial",Font.BOLD,20));
+        g2.drawString("Score: "+score, 10, 20);
 
         if(gameOver){
             g2.setColor(Color.white);
@@ -105,6 +122,15 @@ public class GamePanel extends JPanel implements Runnable{
                                     laser.y>enemyGrid.enemies[i][j].y && laser.y<enemyGrid.enemies[i][j].y+spriteSize){
                                 enemyGrid.enemies[i][j].isAlive = false;
                                 player.lasers.remove(k);
+                                if(enemyGrid.enemies[i][j].type==1){
+                                    score+=20;
+                                }
+                                else if(enemyGrid.enemies[i][j].type==2){
+                                    score+=30;
+                                }
+                                else if(enemyGrid.enemies[i][j].type==3){
+                                    score+=10;
+                                }
                             }
                         }
                     }

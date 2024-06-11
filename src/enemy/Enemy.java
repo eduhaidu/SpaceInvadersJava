@@ -8,6 +8,7 @@ public class Enemy extends Entity {
 
     public int direction;
     public boolean isAlive;
+    public int type;
 
     public Enemy(int x, int y, int speed, BufferedImage sprite) {
         this.x = x;
