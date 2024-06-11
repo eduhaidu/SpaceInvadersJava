@@ -81,6 +81,7 @@ public class Player extends Entity{
         }
         lasers.removeIf(laser->laser.isOutOfBounds(gp.getHeight()));
     }
+
     public void draw(Graphics2D g2){
 
         g2.drawImage(imageSprite,x,y,gp.spriteSize,gp.spriteSize,null);

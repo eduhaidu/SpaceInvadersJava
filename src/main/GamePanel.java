@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements Runnable{
     Player player = new Player(this,keyHandler);
     EnemyGrid enemyGrid = new EnemyGrid(this);
     //Enemy enemy = new Enemy(this);
-    //Collider collider = new Collider();
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -64,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
         player.update();
-        //enemy.update();
+        enemyGrid.update();
     }
 
     public void paintComponent(Graphics g){

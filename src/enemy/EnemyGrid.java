@@ -12,75 +12,70 @@ import java.io.InputStreamReader;
 public class EnemyGrid {
 
     GamePanel gp;
-    Enemy[] enemies;
-    int mapEnemyNum[][];
+    Enemy[][] enemies;
+    int rows=5;
+    int cols=11;
+    int gridX=100;
+    int gridY=100;
 
     public EnemyGrid(GamePanel gp){
-        this.gp=gp;
-        enemies = new Enemy[5];
-        mapEnemyNum = new int[11][5];
-        getEnemyImage();
-        loadMap();
+        this.gp = gp;
+        enemies = new Enemy[rows][cols];
+        for (int i=0;i<rows;i++)
+            for (int j=0;j<cols;j++)
+                enemies[i][j] = null;
+        loadEnemies();
     }
 
-    public void getEnemyImage(){
+    public void loadEnemies(){
         try{
-            enemies[0]=new Enemy();
-            enemies[0].imageSprite= ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite.png"));
-
-            enemies[1]=new Enemy();
-            enemies[1].imageSprite= ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite1.png"));
-
-            enemies[2]=new Enemy();
-            enemies[2].imageSprite= ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite2.png"));
-
-        }catch(IOException e) {
+            InputStream in = getClass().getResourceAsStream("/maps/gridMap.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String line;
+            int y = gridY;
+            for(int i=0; i<rows; i++){
+                int x = gridX;
+                line = br.readLine();
+                for(int j=0; j<cols; j++){
+                    if(line.charAt(j)=='0'){
+                        enemies[i][j]=new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite.png")));
+                    }
+                    else if(line.charAt(j)=='1'){
+                        enemies[i][j] = new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite1.png")));
+                    }
+                    else if(line.charAt(j)=='2'){
+                        enemies[i][j] = new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite2.png")));
+                    }
+                    else{
+                        System.out.println("Numar invalid in fisierul de configurare al inamicilor la linia "+(i+1)+" si coloana "+(j+1));
+                    }
+                    x+=gp.spriteSize;
+                }
+                y+=gp.spriteSize;
+            }
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    public void loadMap() {
-        try {
-            InputStream in = getClass().getResourceAsStream("/maps/gridMap.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            int col = 0;
-            int row = 0;
-
-            while (col < 11 && row < 5) {
-                String Line = br.readLine();
-                while (col < 11) {
-                    String numbers[] = Line.split(" ");
-                    int num = Integer.parseInt(numbers[col]);
-                    mapEnemyNum[col][row] = num;
-                    col++;
-                }
-                if(col==11){
-                    col=0;
-                    row++;
+    public void update(){
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                if(enemies[i][j]!=null){
+                    enemies[i][j].update();
                 }
             }
-            br.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
-    public void draw(Graphics2D g2){
-        int col=0;
-        int row=0;
-        int x=100;
-        int y=100;
-        while(col<11&&row<5){
-            int tileNum = mapEnemyNum[col][row];
-            g2.drawImage(enemies[tileNum].imageSprite,x,y,gp.spriteSize,gp.spriteSize,null);
-            col++;
-            x+=gp.spriteSize;
-            if(col==11){
-                col=0;
-                x=100;
-                row++;
-                y+=gp.spriteSize;
+    public void draw(Graphics g){
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                if(enemies[i][j]!=null){
+                    g.drawImage(enemies[i][j].imageSprite,enemies[i][j].x,enemies[i][j].y,gp.spriteSize,gp.spriteSize,null);
+                }
             }
         }
     }
+
 }
