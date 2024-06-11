@@ -9,6 +9,8 @@ import entity.Player;
 
 public class GamePanel extends JPanel implements Runnable{
 
+    public boolean gameOver = false;
+
     final int originalSpriteSize = 16; // Sprite de 16x16
     final int scale = 3;
 
@@ -24,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this,keyHandler);
-    EnemyGrid enemyGrid = new EnemyGrid(this);
+    public EnemyGrid enemyGrid = new EnemyGrid(this);
     //Enemy enemy = new Enemy(this);
 
     public GamePanel(){
@@ -42,29 +44,36 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/fps;
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
-        while(gameThread!=null){
+        while(!gameOver){
+            double drawInterval = 1000000000/fps;
+            double delta = 0;
+            long lastTime = System.nanoTime();
+            long currentTime;
+            while(gameThread!=null){
 
-            currentTime = System.nanoTime();
+                currentTime = System.nanoTime();
 
-            delta += (currentTime - lastTime) / drawInterval;
+                delta += (currentTime - lastTime) / drawInterval;
 
-            lastTime = currentTime;
+                lastTime = currentTime;
 
-            if(delta>=1){
-                update();
-                repaint();
-                delta--;
+                if(delta>=1){
+                    update();
+                    repaint();
+                    delta--;
+                }
+            }
+            if(gameOver){
+                break;
             }
         }
     }
 
     public void update(){
-        player.update();
-        enemyGrid.update();
+        if(!gameOver){
+            player.update();
+            enemyGrid.update();
+        }
     }
 
     public void paintComponent(Graphics g){
@@ -74,6 +83,12 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
         enemyGrid.draw(g2);
         hitDetection();
+
+        if(gameOver){
+            g2.setColor(Color.white);
+            g2.setFont(new Font("Arial",Font.BOLD,50));
+            g2.drawString("GAME OVER", screenWidth/2-150, screenHeight/2);
+        }
         //enemy.draw(g2);
         g2.dispose();
     }

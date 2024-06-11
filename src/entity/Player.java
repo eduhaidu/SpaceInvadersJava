@@ -1,5 +1,6 @@
 package entity;
 
+import enemy.EnemyGrid;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -18,10 +19,14 @@ public class Player extends Entity{
     private long lastShotTime;
     private final long shotCooldown = 1000;
 
+    public boolean isAlive;
+
     public Player(GamePanel gp, KeyHandler kh){
         this.gp = gp;
         this.kh = kh;
         this.lasers = new ArrayList<>();
+
+        this.isAlive=true;
 
         setDefaultValues();
         getPlayerImage();
@@ -58,6 +63,16 @@ public class Player extends Entity{
             shootLasers();
         }
         updateLasers();
+        for(int i=0; i<gp.enemyGrid.rows; i++){
+            for(int j=0; j<gp.enemyGrid.cols; j++){
+                if(gp.enemyGrid.enemies[i][j].isAlive){
+                    if(gp.enemyGrid.enemies[i][j].y<=y-gp.spriteSize/2 && gp.enemyGrid.enemies[i][j].y>=y-gp.spriteSize){
+                        isAlive=false;
+                        gp.gameOver=true;
+                    }
+                }
+            }
+        }
     }
 
     public void shootLasers(){
