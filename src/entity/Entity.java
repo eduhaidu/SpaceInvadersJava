@@ -11,7 +11,4 @@ public class Entity {
     //public boolean alive;
     public BufferedImage imageSprite;
 
-    public Rectangle getBounds(){
-        return new Rectangle(x,y,imageSprite.getWidth(),imageSprite.getHeight());
-    }
 }
