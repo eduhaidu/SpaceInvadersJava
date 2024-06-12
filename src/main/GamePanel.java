@@ -11,6 +11,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public boolean gameOver = false;
     public int score = 0;
+    public int enemySpeed=1;
 
     final int originalSpriteSize = 16; // Sprite de 16x16
     final int scale = 3;
@@ -27,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this,keyHandler);
-    public EnemyGrid enemyGrid = new EnemyGrid(this);
+    public EnemyGrid enemyGrid = new EnemyGrid(this,enemySpeed);
     //Enemy enemy = new Enemy(this);
 
     public GamePanel(){
@@ -85,15 +86,15 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void resetGame(){
-        enemyGrid = new EnemyGrid(this);
+        enemyGrid = new EnemyGrid(this,enemySpeed);
         player.setDefaultValues();
         score = 0;
         gameOver = false;
     }
 
     public void advanceGame(){
-        enemyGrid=new EnemyGrid(this);
-        enemyGrid.gridSpeed+=2;
+        enemySpeed+=2;
+        enemyGrid=new EnemyGrid(this,enemySpeed);
         gameOver=false;
     }
 

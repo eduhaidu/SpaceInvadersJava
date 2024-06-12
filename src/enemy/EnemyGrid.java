@@ -17,14 +17,15 @@ public class EnemyGrid {
     public int cols=11;
     int gridX=100;
     int gridY=100;
-    public int gridSpeed=1;
+    public int gridSpeed;
 
-    public EnemyGrid(GamePanel gp){
+    public EnemyGrid(GamePanel gp, int gridSpeed){
         this.gp = gp;
         enemies = new Enemy[rows][cols];
         for (int i=0;i<rows;i++)
             for (int j=0;j<cols;j++)
                 enemies[i][j] = null;
+        this.gridSpeed=gridSpeed;
         loadEnemies();
     }
 
