@@ -93,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void advanceGame(){
         enemyGrid=new EnemyGrid(this);
-        enemyGrid.gridSpeed++;
+        enemyGrid.gridSpeed+=2;
         gameOver=false;
     }
 
