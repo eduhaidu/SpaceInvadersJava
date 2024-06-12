@@ -1,5 +1,6 @@
 package enemy;
 
+import entity.Laser;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -91,6 +92,14 @@ public class EnemyGrid {
                 }
             }
         }
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(enemies[i][j].isAlive){
+                    enemies[i][j].shoot();
+                    enemies[i][j].updateLasers();
+                }
+            }
+        }
     }
 
     public void draw(Graphics2D g){
@@ -98,6 +107,16 @@ public class EnemyGrid {
             for(int j=0; j<cols; j++){
                 if(enemies[i][j].isAlive){
                     g.drawImage(enemies[i][j].imageSprite,enemies[i][j].x,enemies[i][j].y,gp.spriteSize,gp.spriteSize,null);
+                }
+            }
+        }
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(enemies[i][j].isAlive){
+                    for(Laser laser:enemies[i][j].lasers){
+g.drawImage(laser.imageSprite,laser.x,laser.y,gp.spriteSize,gp.spriteSize,null);
+
+                    }
                 }
             }
         }

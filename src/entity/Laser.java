@@ -3,18 +3,18 @@ package entity;
 import java.awt.image.BufferedImage;
 
 public class Laser extends Entity {
-    public int life;
+    public int direction;
 
-    public Laser(int x, int y, int speed, BufferedImage sprite, int life) {
+    public Laser(int x, int y, int speed,int direction, BufferedImage sprite) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.life = life;
+        this.direction = direction;
         this.imageSprite=sprite;
     }
 
     public void move(){
-        this.y -= speed;
+        this.y += speed*direction;
     }
 
     public boolean isOutOfBounds(int screenHeight){

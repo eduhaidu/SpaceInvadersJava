@@ -84,7 +84,7 @@ public class Player extends Entity{
             }catch(IOException e){
                 e.printStackTrace();
             }
-            Laser laser = new Laser(x,y,5,laserSprite,10);
+            Laser laser = new Laser(x,y,5,-1,laserSprite);
             lasers.add(laser);
             lastShotTime = currentTime;
         }
