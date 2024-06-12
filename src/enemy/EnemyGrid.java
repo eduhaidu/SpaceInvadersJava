@@ -17,6 +17,7 @@ public class EnemyGrid {
     public int cols=11;
     int gridX=100;
     int gridY=100;
+    public int gridSpeed=1;
 
     public EnemyGrid(GamePanel gp){
         this.gp = gp;
@@ -38,15 +39,15 @@ public class EnemyGrid {
                 line = br.readLine();
                 for(int j=0; j<cols; j++){
                     if(line.charAt(j)=='0'){
-                        enemies[i][j]=new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite.png")));
+                        enemies[i][j]=new Enemy(x,y,gridSpeed,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite.png")));
                         enemies[i][j].type=1;
                     }
                     else if(line.charAt(j)=='1'){
-                        enemies[i][j] = new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite1.png")));
+                        enemies[i][j] = new Enemy(x,y,gridSpeed,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite1.png")));
                         enemies[i][j].type=2;
                     }
                     else if(line.charAt(j)=='2'){
-                        enemies[i][j] = new Enemy(x,y,1,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite2.png")));
+                        enemies[i][j] = new Enemy(x,y,gridSpeed,ImageIO.read(getClass().getResourceAsStream("/enemy/enemySprite2.png")));
                         enemies[i][j].type=3;
                     }
                     else{

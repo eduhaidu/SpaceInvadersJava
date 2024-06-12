@@ -76,8 +76,11 @@ public class GamePanel extends JPanel implements Runnable{
             enemyGrid.update();
 
             if(enemyGrid.areAllDead()){
-                resetGame();
+                advanceGame();
             }
+        }
+        if(gameOver && keyHandler.shootKeyPressed){
+            resetGame();
         }
     }
 
@@ -86,6 +89,12 @@ public class GamePanel extends JPanel implements Runnable{
         player.setDefaultValues();
         score = 0;
         gameOver = false;
+    }
+
+    public void advanceGame(){
+        enemyGrid=new EnemyGrid(this);
+        enemyGrid.gridSpeed++;
+        gameOver=false;
     }
 
     public void paintComponent(Graphics g){
