@@ -42,7 +42,7 @@ public class Enemy extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(Math.random()<0.001){
+        if(Math.random()<0.001&&this.type==2){
             lasers.add(new Laser(x+imageSprite.getWidth()/2,y+imageSprite.getHeight(),5,1,laserSprite));
         }
     }
