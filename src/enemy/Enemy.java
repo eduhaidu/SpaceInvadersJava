@@ -1,7 +1,7 @@
 package enemy;
 
 import entity.Entity;
-import entity.Laser;;
+import entity.Laser;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
